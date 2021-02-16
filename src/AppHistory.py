@@ -12,7 +12,6 @@ def main():
     conn = getConnection(MONGODB_HOST, MONGODB_PORT)
     db = getDatabase(conn, DB_NAME)
     collection = getCollection(db, COLLECTION_NAME)
-
     while(True):
         command = input("Please type your command - Type \"help\" for help\n")
         if command == "quit": 
