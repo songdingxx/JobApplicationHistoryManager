@@ -1,45 +1,4 @@
-from datetime import datetime
-
-# Helper function
-# Check prams' length
-def checkParamsLength(params, l):
-    if len(params) < l:
-        print("\n(Parameters Error) Insufficient Parameters\n")
-        return False
-    return True
-
-# Process String - remove spaces at begining and end, convert to lower case
-def processString(s):
-    try:       
-        return s.strip().lower()
-    except:
-        raise Exception("Process string error")
-
-# Process the array of strings
-def processStringArray(ss):
-    try:
-        ss_ = []
-        for s in ss: ss_.append(processString(s))
-        return ss_
-    except:
-        raise Exception("Process string array error")
-
-# Process empty string
-def processEmptyString(s):
-    return s if s != "" else "None"
-
-# Get now in string format
-def getNowString():
-    now = datetime.now()
-    return now.strftime("%d/%m/%Y %H:%M:%S")
-
-# Print record in a pretty way
-def printPretty(record):
-    if not isinstance(record, dict): return
-    print("{")
-    for i, v in record.items():
-        print("%20s: %20s" %(i, v))
-    print("}\n")
+from Util import checkParamsLength, processEmptyString, getNowString, printPretty
 
 # Process input
 def processInput(command, params, collection):
@@ -122,12 +81,12 @@ def findJobs(collection, params):
     try:
         res = collection.find({"company name": params[0], option: params[1]})
         if res.count() == 0:
-            
             print("\nThere is no such job, please check the input\n")
             return
-        print("\nFound %d records\n" %(res.count()))
+
         for x in res:
             printPretty(x)
+        print("\nFound %d records\n" %(res.count()))
     except:
         print("\n(Find error) Database error.\n")
 
@@ -135,10 +94,9 @@ def findJobs(collection, params):
 # TODO: Doesn't suppot <, > yet
 def countByParam(collection, params):
     res = collection.find({params[0]:params[1]})
-    print("\nThere are %d jobs relate to it." %(res.count()))
     for x in res:
         printPretty(x)
-    print()
+    print("\nThere are %d jobs relate to it.\n" %(res.count()))
 
 # Count the number of applications
 def totalApplications(collection):
