@@ -1,37 +1,6 @@
 import pymongo
 from pymongo import MongoClient
-
-MONGODB_HOST = "localhost"
-MONGODB_PORT = 27017
-DB_NAME = "ApplicationHistory"
-COLLECTION_NAME = "histories"
-
-# Try to build connection
-def getConnection(host, port):
-    try:
-        connection = MongoClient(host, port)
-        return connection
-    except:
-        print("Get connection failed")
-        exit()
-
-# Try to get database
-def getDatabase(connection, dbName):
-    try:
-        database = connection[dbName]
-        return database
-    except:
-        print("Get database failed")
-        exit()
-
-# Try to find collection
-def getCollection(database, colName):
-    try:
-        collection = database[colName]
-        return collection
-    except:
-        print("Get collection Failed")
-        exit()
+from ConnDB import *
 
 def insertVal(collection, post):
     try:
@@ -80,7 +49,7 @@ def main():
     while(True):
         command = input("Please type your command\n")
         if command == "quit": 
-            conn.close()
+            closeConnectio(conn)
             break
         if command == "help":
             print()
