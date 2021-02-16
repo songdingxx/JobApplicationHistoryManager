@@ -5,6 +5,7 @@ MONGODB_HOST = "localhost"
 MONGODB_PORT = 27017
 DB_NAME = "ApplicationHistory"
 COLLECTION_NAME = "histories"
+VALID_OPERATION = {"insert", "count", "updatestatus", "findjobs", "total"}
 
 def main():
     conn = getConnection(MONGODB_HOST, MONGODB_PORT)
@@ -12,7 +13,7 @@ def main():
     collection = getCollection(db, COLLECTION_NAME)
 
     while(True):
-        command = input("Please type your command\n")
+        command = input("Please type your command - Type \"help\" for help\n")
         if command == "quit": 
             closeConnection(conn)
             break
@@ -21,14 +22,24 @@ def main():
             print("Operation, [Parameters]   Seperated by comma")
             print("[insert, Company Name, JobID,Position]")
             print("[count,Parameter, Value]")
-            print("[updateStatusById, Company Name, JobID, Status]")
-            print("[updateStatusByPos, Company Name, Position, Status]")
-            print("[Total]")
+            print("[updateStatus, Company Name, param, Status, Option (default = 0) (0: param = JobID， 1：param = Position)]")
+            print("[findJobs, Company Name, param, Option (default = 0) (0: param = JobID， 1：param = Position)]")
+            print("[total]")
             print("[quit]")
             print()
         else:
             commands = command.split(",")
-            processInput(commands[0], commands[1:])
+            try:
+                c_ = processString(commands[0])
+                params = processStringArray(commands[1:])
+            except Exception as e:
+                print(e.args)
+            
+            if c_ not in VALID_OPERATION:
+                print("\nInvalid operation!\n")
+                continue
+
+            processInput(c_, params, collection)
 
 if __name__ == "__main__":
     main()
