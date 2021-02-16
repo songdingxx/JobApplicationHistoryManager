@@ -23,5 +23,5 @@
 >- Find a specific job by Company name and JobID / Position.
 >- Get the total number of jobs that you have applied.
 >
->###
+## I hope we all can find our dream jobs! :)
 
