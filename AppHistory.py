@@ -1,4 +1,5 @@
-from ProcessInput import *
+from ProcessInput import processInput
+from Util import processString, processStringArray
 from ConnDB import getConnection, getDatabase, getCollection, closeConnection
 
 MONGODB_HOST = "localhost"
