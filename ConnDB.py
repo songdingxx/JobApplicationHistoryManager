@@ -1,10 +1,6 @@
 import pymongo
 from pymongo import MongoClient
 
-MONGODB_HOST = "localhost"
-MONGODB_PORT = 27017
-DB_NAME = "ApplicationHistory"
-COLLECTION_NAME = "histories"
 
 # Try to build connection
 def getConnection(host, port):
@@ -34,7 +30,7 @@ def getCollection(database, colName):
         exit()
 
 # Close connection
-def closeConnectio(conn):
+def closeConnection(conn):
     try:
         conn.close()
     except:
